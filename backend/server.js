@@ -1,6 +1,6 @@
-const app = require("./app");
-const connectDB = require("./config/db");
-const { PORT } = require("./config");
+const app = require('./app');
+const connectDB = require('./config/db');
+const { PORT } = require('./config');
 
 connectDB();
 
@@ -11,10 +11,10 @@ const server = app.listen(PORT, () => {
 //Graceful shutdown
 function shutdown() {
   server.close(() => {
-    console.log("Process terminated");
+    console.log('Process terminated');
     process.exit(0);
   });
 }
 
-process.on("SIGTERM", shutdown);
-process.on("SIGINT", shutdown);
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
