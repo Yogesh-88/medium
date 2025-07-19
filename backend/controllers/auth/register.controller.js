@@ -8,7 +8,6 @@ const registerUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error, 'error coming from service');
     return res.status(error.status).json({ message: error.message });
   }
 };

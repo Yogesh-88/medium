@@ -2,7 +2,9 @@ const { StatusCodes } = require('http-status-codes');
 const Joi = require('joi');
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(2).max(50).trim().required(),
+  username: Joi.string().min(2).max(50).trim().required(),
+  firstName: Joi.string().trim().required(),
+  lastName: Joi.string().trim().required(),
   email: Joi.string().email().trim().lowercase().required(),
   password: Joi.string().min(6).required(),
   avatar: Joi.string().uri().optional().allow(''),
