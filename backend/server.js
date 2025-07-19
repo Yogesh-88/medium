@@ -1,20 +1,20 @@
 const app = require('./app');
 const connectDB = require('./config/db');
 const { PORT } = require('./config');
+const gracefulShutdown = require('./utils/gracefulShutdown');
 
-connectDB();
+async function startServer() {
+  try {
+    await connectDB();
 
-const server = app.listen(PORT, () => {
-  console.log(`Server started at PORT ${PORT}`);
-});
+    const server = app.listen(PORT, () => {
+      console.log(`Server started at PORT ${PORT}`);
+    });
 
-//Graceful shutdown
-function shutdown() {
-  server.close(() => {
-    console.log('Process terminated');
-    process.exit(0);
-  });
+    gracefulShutdown(server);
+  } catch (error) {
+    console.log('Failed to start server', error);
+    process.exit(1);
+  }
 }
-
-process.on('SIGTERM', shutdown);
-process.on('SIGINT', shutdown);
+startServer();
