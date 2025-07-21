@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const { checkUsernameService } = require('../../services/auth');
+const { checkUsernameService } = require('../services');
 
 const checkUsernameController = async (req, res) => {
   const username = req.body?.username;
