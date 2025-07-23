@@ -2,7 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const Joi = require('joi');
 
 const loginSchema = Joi.object({
-  username: Joi.string().min(4).max(50).trim().required(),
+  username: Joi.string().min(4).max(50).trim().lowercase().required(),
   password: Joi.string().min(6).required(),
 });
 

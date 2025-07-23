@@ -2,7 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const { checkUsernameService } = require('../services');
 
 const checkUsernameController = async (req, res) => {
-  const username = req.body?.username;
+  const username = req.body?.username.toLowerCase();
   if (!username) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       message: 'Username is required in the request body',
