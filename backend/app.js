@@ -3,7 +3,7 @@ const cors = require('cors');
 const { StatusCodes } = require('http-status-codes');
 const apiRouter = require('./routes');
 const helmet = require('helmet');
-const { rateLimitter } = require('./middlewares');
+const { rateLimitter, notFound, globalErrorHandler } = require('./middlewares');
 
 const app = express();
 
@@ -11,6 +11,7 @@ app.use(helmet());
 app.use(cors());
 app.use(rateLimitter);
 app.use(express.json());
+
 app.use('/api', apiRouter);
 
 app.get('/ping', (req, res) => {
@@ -18,5 +19,9 @@ app.get('/ping', (req, res) => {
     msg: 'Pong',
   });
 });
+
+app.use(notFound);
+
+app.use(globalErrorHandler);
 
 module.exports = app;

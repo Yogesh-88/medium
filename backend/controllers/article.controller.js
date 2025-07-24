@@ -1,52 +1,59 @@
 const { StatusCodes } = require('http-status-codes');
 const { articleService } = require('../services');
+const { successResponse, errorResponse } = require('../utils/response');
 
-const getAllArticles = async (req, res) => {
-  const articles = await articleService.getAllArticles();
-  res.status(StatusCodes.OK).json({
-    articles,
-  });
-};
-
-const getArticleById = async (req, res) => {
-  const article = await articleService.getArticleById(req.params.id);
-  if (!article) {
-    return res.status(StatusCodes.NOT_FOUND).json({
-      message: 'Article not found',
-    });
+const getAllArticles = async (req, res, next) => {
+  try {
+    const articles = await articleService.getAllArticles();
+    return successResponse(res, articles, 'Articles fetched successfully');
+  } catch (error) {
+    next(error);
   }
-  res.status(StatusCodes.OK).json({
-    article,
-  });
 };
 
-const createArticle = async (req, res) => {
-  const article = await articleService.createArticle(req.body, req.user);
-  res.status(StatusCodes.CREATED).json({
-    article,
-  });
-};
-
-const updateArticle = async (req, res) => {
-  const updated = await articleService.updateArticle(req.params.id, req.body, req.user);
-  if (!updated) {
-    return res.status(StatusCodes.FORBIDDEN).json({
-      messssage: 'Not allowed',
-    });
+const getArticleById = async (req, res, next) => {
+  try {
+    const article = await articleService.getArticleById(req.params.id);
+    if (!article) {
+      return errorResponse(res, {}, 'Article not found', StatusCodes.NOT_FOUND);
+    }
+    return successResponse(res, article, 'Article fetched successfully');
+  } catch (error) {
+    next(error);
   }
-  res.status(StatusCodes.OK).json({
-    updated,
-  });
 };
 
-const deleteArticle = async (req, res) => {
-  const deleted = await articleService.deleteArticle(req.params.id, req.user);
-  if (!deleted) {
-    return res.status(StatusCodes.FORBIDDEN).json({
-      message: 'Not allowed',
-    });
+const createArticle = async (req, res, next) => {
+  try {
+    const article = await articleService.createArticle(req.body, req.user);
+    return successResponse(res, article, 'Article created successfully', StatusCodes.CREATED);
+  } catch (error) {
+    next(error);
   }
-  res.status(StatusCodes.OK).json({ message: 'Article deleted' });
+};
+
+const updateArticle = async (req, res, next) => {
+  try {
+    const updated = await articleService.updateArticle(req.params.id, req.body, req.user);
+    if (!updated) {
+      return errorResponse(res, {}, 'Not authorized to update this article', StatusCodes.FORBIDDEN);
+    }
+    return successResponse(res, updated, 'Article updated');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteArticle = async (req, res, next) => {
+  try {
+    const deleted = await articleService.deleteArticle(req.params.id, req.user);
+    if (!deleted) {
+      return errorResponse(res, {}, 'Not authorized to delete this article', StatusCodes.FORBIDDEN);
+    }
+    return successResponse(res, {}, 'Article deleted');
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
