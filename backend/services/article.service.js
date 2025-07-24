@@ -17,7 +17,9 @@ const createArticle = async (data, user) => {
 
 const updateArticle = async (id, data, user) => {
   const article = await Article.findById(id);
-  if (!article || article.author.toString() !== user._id.toString()) return null;
+  if (!article) return 'not found';
+
+  if (article.author.toString() !== user._id.toString()) return 'forbidden';
 
   Object.assign(article, data);
   return await article.save();
@@ -25,7 +27,9 @@ const updateArticle = async (id, data, user) => {
 
 const deleteArticle = async (id, user) => {
   const article = await Article.findById(id);
-  if (!article || article.author.toString() !== user._id.toString()) return null;
+  if (!article) return 'not_found';
+
+  if (article.author.toString() !== user._id.toString()) return 'forbidden';
 
   await article.deleteOne();
   return true;

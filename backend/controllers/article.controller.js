@@ -34,10 +34,13 @@ const createArticle = async (req, res, next) => {
 
 const updateArticle = async (req, res, next) => {
   try {
-    const updated = await articleService.updateArticle(req.params.id, req.body, req.user);
-    if (!updated) {
+    const result = await articleService.updateArticle(req.params.id, req.body, req.user);
+    if (result == 'not_found')
+      return errorResponse(res, {}, 'Article not found', StatusCodes.NOT_FOUND);
+
+    if (result == 'forbidden')
       return errorResponse(res, {}, 'Not authorized to update this article', StatusCodes.FORBIDDEN);
-    }
+
     return successResponse(res, updated, 'Article updated');
   } catch (error) {
     next(error);
@@ -46,10 +49,13 @@ const updateArticle = async (req, res, next) => {
 
 const deleteArticle = async (req, res, next) => {
   try {
-    const deleted = await articleService.deleteArticle(req.params.id, req.user);
-    if (!deleted) {
+    const result = await articleService.deleteArticle(req.params.id, req.user);
+    if (result == 'not_found')
+      return errorResponse(res, {}, 'Article not found', StatusCodes.NOT_FOUND);
+
+    if (result == 'forbidden')
       return errorResponse(res, {}, 'Not authorized to delete this article', StatusCodes.FORBIDDEN);
-    }
+
     return successResponse(res, {}, 'Article deleted');
   } catch (error) {
     next(error);
