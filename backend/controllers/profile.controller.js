@@ -1,48 +1,34 @@
 const { StatusCodes } = require('http-status-codes');
 const { profileService } = require('../services');
+const { successResponse, errorResponse } = require('../utils/response');
 
-const getMyProfile = async (req, res) => {
+const getMyProfile = async (req, res, next) => {
   try {
     const user = await profileService.getMyProfile(req.user.id);
-    res.status(StatusCodes.OK).json({
-      data: user,
-    });
+    return successResponse(res, user, 'Profile fetched successfully');
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const updateMyProfile = async (req, res) => {
+const updateMyProfile = async (req, res, next) => {
   try {
     const user = await profileService.updateMyProfile(req.user.id, req.body);
-    res.status(StatusCodes.OK).json({
-      message: 'Profie updated successfully',
-      data: user,
-    });
+    return successResponse(res, user, 'Profile updated successfully');
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
     const user = await profileService.getUserById(req.params.id);
     if (!user) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        message: 'User not found',
-      });
+      return errorResponse(res, {}, 'User not found', StatusCodes.NOT_FOUND);
     }
-    res.status(StatusCodes.OK).json({
-      data: user,
-    });
+    return successResponse(res, user, 'User fetched successfully');
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    next(error);
   }
 };
 
