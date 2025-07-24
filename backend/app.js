@@ -2,10 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const { StatusCodes } = require('http-status-codes');
 const apiRouter = require('./routes');
+const helmet = require('helmet');
+const { rateLimitter } = require('./middlewares');
 
 const app = express();
 
+app.use(helmet());
 app.use(cors());
+app.use(rateLimitter);
 app.use(express.json());
 app.use('/api', apiRouter);
 

@@ -27,7 +27,7 @@ const deleteArticle = async (id, user) => {
   const article = await Article.findById(id);
   if (!article || article.author.toString() !== user._id.toString()) return null;
 
-  await article.remove();
+  await article.deleteOne();
   return true;
 };
 
