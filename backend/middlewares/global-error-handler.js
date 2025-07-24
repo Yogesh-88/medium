@@ -1,8 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 
 const globalErrorHandler = (err, req, res, next) => {
-  let status = StatusCodes.INTERNAL_SERVER_ERROR;
-  let message = 'Internal server error';
+  let status = err.status || StatusCodes.INTERNAL_SERVER_ERROR;
+  let message = err.message || 'Internal server error';
 
   if (err.name === 'ValidationError') {
     status = StatusCodes.BAD_REQUEST;
@@ -24,7 +24,6 @@ const globalErrorHandler = (err, req, res, next) => {
   return res.status(status).json({
     success: false,
     message,
-    error: err.message || err,
   });
 };
 
