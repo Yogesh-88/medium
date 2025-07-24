@@ -3,4 +3,5 @@ module.exports = {
   checkUsernameController: require('./check-username.controller'),
   loginController: require('./login.controller'),
   articleController: require('./article.controller'),
+  profileController: require('./profile.controller'),
 };
