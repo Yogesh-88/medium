@@ -50,7 +50,7 @@ const checkUsername = async (username) => {
   }
 };
 
-const registerUser = async (body) => {
+const register = async (body) => {
   const { username, firstName, lastName, email, password, avatar, bio, role } = body;
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -82,7 +82,7 @@ const registerUser = async (body) => {
 };
 
 module.exports = {
-  registerUser,
+  register,
   login,
   checkUsername,
 };

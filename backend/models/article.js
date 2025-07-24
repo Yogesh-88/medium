@@ -21,6 +21,11 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tags: {
+    type: [String],
+    default: [],
+    index: true,
+  },
   //summary
   excerpt: {
     type: String,

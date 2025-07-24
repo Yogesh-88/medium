@@ -6,6 +6,7 @@ const articleSchema = Joi.object({
   slug: Joi.string().trim().lowercase().required(),
   subtitle: Joi.string().trim(),
   content: Joi.string().required(),
+  tags: Joi.array().items(Joi.string()),
   excerpt: Joi.string().trim(),
   author: Joi.string().hex(),
   viewCount: Joi.number().min(0),
