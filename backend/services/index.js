@@ -3,4 +3,5 @@ module.exports = {
   articleService: require('./article.service'),
   profileService: require('./profile.service'),
   tagsService: require('./tags.service'),
+  connectionService: require('./connection.service'),
 };

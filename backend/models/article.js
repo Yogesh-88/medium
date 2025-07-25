@@ -39,10 +39,6 @@ const articleSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  commenctCount: {
-    type: Number,
-    default: 0,
-  },
   allowComments: {
     type: Boolean,
     default: true,
