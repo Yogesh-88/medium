@@ -4,4 +4,5 @@ module.exports = {
   profileService: require('./profile.service'),
   tagsService: require('./tags.service'),
   connectionService: require('./connection.service'),
+  interactionService: require('./interaction.service'),
 };

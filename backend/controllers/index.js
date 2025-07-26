@@ -4,4 +4,5 @@ module.exports = {
   profileController: require('./profile.controller'),
   tagsController: require('./tags.controller'),
   connectionController: require('./connection.controller'),
+  interactionController: require('./interaction.controller'),
 };
