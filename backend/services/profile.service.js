@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const { User } = require('../models');
 
 const getMyProfile = async (userId) => {
   return await User.findById(userId).select('-password -createdAt -updatedAt');

@@ -1,5 +1,5 @@
 const Comment = require('../models/comment');
-const Clap = require('../models/clap');
+const { Clap } = require('../models');
 
 const addComment = async (articleId, userId, text) => {
   const comment = new Comment({

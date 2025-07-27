@@ -1,4 +1,4 @@
-const Article = require('../models/article');
+const { Article } = require('../models');
 
 const getTrendingTags = async () => {
   const result = await Article.aggregate([

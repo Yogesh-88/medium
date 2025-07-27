@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const Follow = require('../models/follow');
+const { Follow } = require('../models');
 
 const follow = async (followerId, followingId) => {
   if (followerId === followingId) {

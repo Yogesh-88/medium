@@ -1,4 +1,4 @@
-const Article = require('../models/article');
+const { Article } = require('../models');
 
 const getAllArticles = async () => {
   return await Article.find().populate('author', 'username');
