@@ -1,4 +1,6 @@
-const { successResponse } = require('../utils/response');
+const {
+  response: { successResponse },
+} = require('../utils');
 const { tagsService } = require('../services');
 
 const getTrendingTags = async (req, res, next) => {

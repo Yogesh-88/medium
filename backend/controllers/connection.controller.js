@@ -1,5 +1,7 @@
 const { connectionService } = require('../services');
-const { successResponse } = require('../utils/response');
+const {
+  response: { successResponse },
+} = require('../utils');
 
 const followUser = async (req, res, next) => {
   try {

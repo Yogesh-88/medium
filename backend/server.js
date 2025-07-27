@@ -1,7 +1,7 @@
 const app = require('./app');
 const connectDB = require('./config/db');
 const { PORT } = require('./config');
-const gracefulShutdown = require('./utils/gracefulShutdown');
+const { gracefulShutdown } = require('./utils');
 
 async function startServer() {
   try {

@@ -1,6 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const { interactionService } = require('../services');
-const { successResponse } = require('../utils/response');
+const {
+  response: { successResponse },
+} = require('../utils');
 
 const addComment = async (req, res, next) => {
   try {

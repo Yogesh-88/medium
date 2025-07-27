@@ -1,9 +1,7 @@
 const User = require('../models/user');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../config');
-const { hashPassword } = require('../utils/hash');
+const { hashPassword, generateToken } = require('../utils');
 
 const login = async (username, password) => {
   const user = await User.findOne({ username });
@@ -21,21 +19,13 @@ const login = async (username, password) => {
     throw error;
   }
 
-  const token = jwt.sign(
-    {
-      id: user._id,
-      role: user.role,
-    },
-    JWT_SECRET,
-    { expiresIn: '1d' }
-  );
+  const token = generateToken({ id: user._id });
 
   return {
     user: {
       id: user._id,
       username: user.username,
       email: user.email,
-      role: user.role,
     },
     token,
   };
@@ -74,10 +64,15 @@ const register = async (body) => {
 
   await user.save();
 
+  const token = generateToken({ id: user._id });
+
   return {
-    id: user._id,
-    username: user.username,
-    email: user.email,
+    user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    },
+    token,
   };
 };
 

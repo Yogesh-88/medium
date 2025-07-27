@@ -1,6 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const { articleService } = require('../services');
-const { successResponse, errorResponse } = require('../utils/response');
+const {
+  response: { successResponse, errorResponse },
+} = require('../utils');
 
 const getAllArticles = async (req, res, next) => {
   try {

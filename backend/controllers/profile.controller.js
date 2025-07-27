@@ -1,6 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const { profileService } = require('../services');
-const { successResponse, errorResponse } = require('../utils/response');
+const {
+  response: { successResponse, errorResponse },
+} = require('../utils');
 
 const getMyProfile = async (req, res, next) => {
   try {

@@ -1,6 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const { authService } = require('../services');
-const { successResponse, errorResponse } = require('../utils/response');
+const {
+  response: { successResponse, errorResponse },
+} = require('../utils');
 
 const checkUsername = async (req, res, next) => {
   const username = req.body?.username.toLowerCase();
