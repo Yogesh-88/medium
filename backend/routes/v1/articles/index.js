@@ -5,6 +5,8 @@ const { validateArticle } = require('../../../validators');
 
 const router = express.Router();
 
+router.get('/feed', authMiddleware, articleController.getFeed);
+
 router.get('/', articleController.getAllArticles);
 
 router.post('/', authMiddleware, validateArticle, articleController.createArticle);

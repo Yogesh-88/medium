@@ -64,10 +64,23 @@ const deleteArticle = async (req, res, next) => {
   }
 };
 
+const getFeed = async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page || 1);
+    const limit = parseInt(req.query.limit) || 10;
+    const articles = await articleService.getFeed(req.user.id, page, limit);
+    successResponse(res, articles, 'Feed fetched');
+  } catch (error) {
+    console.log(error, 'com');
+    next(error);
+  }
+};
+
 module.exports = {
   getAllArticles,
   getArticleById,
   createArticle,
   updateArticle,
   deleteArticle,
+  getFeed,
 };
