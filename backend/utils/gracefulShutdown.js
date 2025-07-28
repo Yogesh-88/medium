@@ -1,25 +1,29 @@
 const mongoose = require('mongoose');
+const logger = require('../config/logger');
 
 const gracefulShutdown = (server) => {
-  const shutdown = async () => {
-    console.log('Shutting down gracefully');
+  const shutdown = async (signal) => {
+    logger.info(`${signal} received, starting graceful shutdown`);
 
     server.close(async () => {
-      console.log('HTTP server closed');
+      logger.info('HTTP server closed');
 
       try {
         await mongoose.connection.close();
-        console.log('MongoDB connection closed');
-        process.exit(0);
+        logger.info('MongoDB connection closed');
+
+        logger.end(() => {
+          process.exit(0);
+        });
       } catch (error) {
-        console.log('Erorr closing MongoDB', error);
+        logger.error('Error closing MongoDB', { error: error.message });
         process.exit(1);
       }
     });
   };
 
-  process.on('SIGTERM', shutdown);
-  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+  process.on('SIGINT', () => shutdown('SIGINT'));
 };
 
 module.exports = gracefulShutdown;
