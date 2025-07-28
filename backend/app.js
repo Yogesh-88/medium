@@ -3,12 +3,13 @@ const cors = require('cors');
 const { StatusCodes } = require('http-status-codes');
 const apiRouter = require('./routes');
 const helmet = require('helmet');
-const { rateLimitter, notFound, globalErrorHandler } = require('./middlewares');
+const { rateLimitter, notFound, globalErrorHandler, morganMiddleware } = require('./middlewares');
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
+app.use(morganMiddleware);
 app.use(rateLimitter);
 app.use(express.json());
 
