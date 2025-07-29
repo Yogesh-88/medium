@@ -1,8 +1,6 @@
 const app = require('./app');
-const connectDB = require('./config/db');
-const { PORT, NODE_ENV } = require('./config');
+const { PORT, NODE_ENV, connectDB, logger } = require('./config');
 const { gracefulShutdown } = require('./utils');
-const logger = require('./config/logger');
 
 async function startServer() {
   try {

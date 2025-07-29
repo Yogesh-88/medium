@@ -1,5 +1,5 @@
 const morgan = require('morgan');
-const logger = require('../config/logger');
+const { logger } = require('../config');
 
 morgan.token('timestamp', () => new Date().toISOString());
 morgan.token('body', (req) => JSON.stringify(req.body));

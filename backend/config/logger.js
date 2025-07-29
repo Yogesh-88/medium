@@ -1,7 +1,7 @@
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs');
-const { LOG_LEVEL, NODE_ENV } = require('./');
+const { LOG_LEVEL, NODE_ENV } = require('./env');
 
 const logDir = path.join(__dirname, '../logs');
 

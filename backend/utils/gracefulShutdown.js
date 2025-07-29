@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const logger = require('../config/logger');
+const { logger } = require('../config');
 
 const gracefulShutdown = (server) => {
   const shutdown = async (signal) => {
