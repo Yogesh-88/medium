@@ -6,13 +6,15 @@ const {
 const { logger } = require('../config');
 
 const checkUsername = async (req, res, next) => {
-  const username = req.body?.username.toLowerCase();
+  const username = req.query?.username.toLowerCase();
+
   if (!username) {
-    logger.warn('Usernae check failed:missing username');
+    logger.warn('Username check failed: missing username in query');
+
     return errorResponse(
       res,
       {},
-      'Username is required in the request body',
+      'Username is required in the request query',
       StatusCodes.BAD_REQUEST
     );
   }
