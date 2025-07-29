@@ -24,7 +24,7 @@ const checkUsername = async (req, res, next) => {
     logger.info('Username is available', { username });
     return successResponse(res, {}, 'Username is available');
   } catch (error) {
-    logger.error('Error while checking username', { usename, error });
+    logger.error('Error while checking username', { username, error });
     next(error);
   }
 };
