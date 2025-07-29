@@ -9,11 +9,11 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
-const { combine, timestamp, printf, errors, colorize } = winston.format;
+const { combine, timestamp, printf, errors, colorize, metadata } = winston.format;
 
 //for production logFormat should be json
-const logFormat = printf(({ level, message, timestamp, stack }) => {
-  return `${timestamp} ${level}: ${stack || message}`;
+const logFormat = printf(({ level, message, timestamp, stack, metadata }) => {
+  return `${timestamp} ${level}: ${stack || message} ${Object.keys(metadata).length ? JSON.stringify(metadata) : ''}`;
 });
 
 const { File, Console } = winston.transports;
@@ -33,7 +33,12 @@ if (NODE_ENV === 'development') {
 
 const logger = winston.createLogger({
   level: LOG_LEVEL,
-  format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), errors({ stack: true }), logFormat),
+  format: combine(
+    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    metadata({ fillExcept: ['message', 'level', 'timestamp', 'label'] }),
+    errors({ stack: true }),
+    logFormat
+  ),
   transports,
 });
 

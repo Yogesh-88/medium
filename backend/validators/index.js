@@ -1,5 +1,5 @@
 module.exports = {
-  validateRegister: require('./register.validator'),
-  validateLogin: require('./login.validator'),
+  validateRegisterData: require('./register.validator'),
+  validateLoginData: require('./login.validator'),
   validateArticle: require('./article.validator'),
 };
