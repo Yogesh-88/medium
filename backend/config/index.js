@@ -8,4 +8,5 @@ module.exports = {
   LOG_LEVEL: env.LOG_LEVEL,
   connectDB: require('./db'),
   logger: require('./logger'),
+  swaggerSpec: require('./swagger'),
 };

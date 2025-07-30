@@ -39,7 +39,7 @@ const login = async (req, res, next) => {
 
     return successResponse(res, { user: result.user, token: result.token }, 'Login success');
   } catch (error) {
-    logger.error('Login failed', { username, error });
+    logger.error('Login failed', { error });
     next(error);
   }
 };
@@ -50,7 +50,7 @@ const register = async (req, res, next) => {
   try {
     const user = await authService.register(req.body);
     logger.info('Registration successfull', { userId: user._id });
-    return successResponse(res, { user }, 'Registration success', StatusCodes.CREATED);
+    return successResponse(res, user, 'Registration success', StatusCodes.CREATED);
   } catch (error) {
     logger.error('Registration faile', { error });
     next(error);
