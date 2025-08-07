@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 
-const globalErrorHandler = (err, req, res, next) => {
+const globalErrorHandler = (err, _req, res, _next) => {
   let status = err.status || StatusCodes.INTERNAL_SERVER_ERROR;
   let message = err.message || 'Internal server error';
 

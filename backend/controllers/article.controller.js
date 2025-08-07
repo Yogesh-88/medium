@@ -4,7 +4,7 @@ const {
   response: { successResponse, errorResponse },
 } = require('../utils');
 
-const getAllArticles = async (req, res, next) => {
+const getAllArticles = async (_req, res, next) => {
   try {
     const articles = await articleService.getAllArticles();
     return successResponse(res, articles, 'Articles fetched successfully');

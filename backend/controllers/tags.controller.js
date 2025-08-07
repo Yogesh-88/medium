@@ -3,7 +3,7 @@ const {
 } = require('../utils');
 const { tagsService } = require('../services');
 
-const getTrendingTags = async (req, res, next) => {
+const getTrendingTags = async (_req, res, next) => {
   try {
     const tags = await tagsService.getTrendingTags();
     return successResponse(res, tags, 'Trending tags fetched successfully');

@@ -19,7 +19,7 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api', apiRouter);
 
-app.get('/ping', (req, res) => {
+app.get('/ping', (_req, res) => {
   res.status(StatusCodes.OK).json({
     msg: 'Pong',
   });
