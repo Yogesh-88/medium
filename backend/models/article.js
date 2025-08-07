@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-const articleSchema = new mongoose.Schema({
+const articleSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, 'Title is required'],
     trim: true,
   },
   slug: {
     type: String,
-    required: true,
+    required: [true, 'Slug is required'],
     unique: true,
     trim: true,
     lowercase: true,
@@ -16,10 +16,11 @@ const articleSchema = new mongoose.Schema({
   subtitle: {
     type: String,
     trim: true,
+    maxlength: [300, 'Subtitle is too long'],
   },
   content: {
     type: String,
-    required: true,
+    required: [true, 'Content is required'],
   },
   tags: {
     type: [String],
@@ -30,9 +31,10 @@ const articleSchema = new mongoose.Schema({
   excerpt: {
     type: String,
     trim: true,
+    maxlength: [500, 'Excerpt is too long'],
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: 'User',
   },
   viewCount: {
@@ -49,5 +51,5 @@ const articleSchema = new mongoose.Schema({
   },
 });
 
-const Article = mongoose.model('Article', articleSchema);
+const Article = model('Article', articleSchema);
 module.exports = Article;

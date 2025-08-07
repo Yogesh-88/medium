@@ -4,10 +4,10 @@ const Joi = require('joi');
 const articleSchema = Joi.object({
   title: Joi.string().required(),
   slug: Joi.string().trim().lowercase().required(),
-  subtitle: Joi.string().trim(),
+  subtitle: Joi.string().max(300).trim(),
   content: Joi.string().required(),
   tags: Joi.array().items(Joi.string()),
-  excerpt: Joi.string().trim(),
+  excerpt: Joi.string().max(500).trim(),
   author: Joi.string().hex(),
   viewCount: Joi.number().min(0),
   commentCount: Joi.number().min(0),

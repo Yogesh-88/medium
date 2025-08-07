@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-const clapSchema = new mongoose.Schema(
+const clapSchema = new Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'User',
       required: true,
     },
     article: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'Article',
       required: true,
     },
@@ -20,4 +20,4 @@ const clapSchema = new mongoose.Schema(
 
 clapSchema.index({ user: 1, article: 1 }, { unique: true });
 
-module.exports = mongoose.model('Clap', clapSchema);
+module.exports = model('Clap', clapSchema);
