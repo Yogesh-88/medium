@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { hashPassword, generateToken } = require('../utils');
 
 const login = async (username, password) => {
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username }).lean();
 
   if (!user) {
     const error = new Error('User not found');
@@ -32,7 +32,7 @@ const login = async (username, password) => {
 };
 
 const checkUsername = async (username) => {
-  const existingUser = await User.findOne({ username });
+  const existingUser = await User.findOne({ username }).lean();
   if (existingUser) {
     const error = new Error('Username is already taken');
     error.status = StatusCodes.CONFLICT;
@@ -42,7 +42,7 @@ const checkUsername = async (username) => {
 
 const register = async (body) => {
   const { username, firstName, lastName, email, password, avatar, bio, role } = body;
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email }).lean();
   if (existingUser) {
     const error = new Error('Email already registered');
     error.status = StatusCodes.CONFLICT;

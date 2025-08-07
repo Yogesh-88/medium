@@ -10,7 +10,7 @@ const addComment = async (articleId, userId, text) => {
 };
 
 const getCommentsForArticle = async (articleId) => {
-  return await Comment.find({ article: articleId }).sort({ createdAt: -1 });
+  return await Comment.find({ article: articleId }).sort({ createdAt: -1 }).lean();
 };
 
 const clapArticle = async (articleId, userId) => {

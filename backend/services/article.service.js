@@ -2,11 +2,11 @@ const { default: mongoose } = require('mongoose');
 const { Article, Follow } = require('../models');
 
 const getAllArticles = async () => {
-  return await Article.find().populate('author', 'username');
+  return await Article.find().populate('author', 'username').lean();
 };
 
 const getArticleById = async (id) => {
-  return await Article.findById(id).populate('author', 'username');
+  return await Article.findById(id).populate('author', 'username').lean();
 };
 
 const createArticle = async (data, user) => {

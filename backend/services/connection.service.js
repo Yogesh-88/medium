@@ -11,7 +11,7 @@ const follow = async (followerId, followingId) => {
 
   const alreadyFollowing = await Follow.findOne({
     follower: followerId,
-    following: followerId,
+    following: followingId,
   });
 
   if (alreadyFollowing) return;
@@ -24,18 +24,16 @@ const unfollow = async (followerId, followingId) => {
 };
 
 const getFollowers = async (userId) => {
-  const followers = await Follow.find({ following: userId }).populate(
-    'follower',
-    'username avatar'
-  );
+  const followers = await Follow.find({ following: userId })
+    .populate('follower', 'username avatar')
+    .lean();
   return followers.map((f) => f.follower);
 };
 
 const getFollowing = async (userId) => {
-  const following = await Follow.find({ follower: userId }).populate(
-    'following',
-    'username avatar'
-  );
+  const following = await Follow.find({ follower: userId })
+    .populate('following', 'username avatar')
+    .lean();
   return following.map((f) => f.following);
 };
 
